@@ -1,11 +1,18 @@
 pipeline {
-    agent { docker { image 'python:3.12.0-alpine3.18' } }
+    agent any
     stages {
         stage('build') {
             steps {
-                sh 'python --version'
-                sh 'sleep 10'
+                sh 'docker build -t hello .'
             }
+        }
+
+        stage('deploy') {
+
+            steps {
+                sh 'docker run hello'
+            }
+            
         }
     }
 }
